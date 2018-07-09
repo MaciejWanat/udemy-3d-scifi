@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 1832922032}
-  m_IndirectSpecularColor: {r: 0.54438776, g: 0.50699246, b: 0.52424204, a: 1}
+  m_IndirectSpecularColor: {r: 0.25329408, g: 0.2169948, b: 0.23320016, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -1507,6 +1507,7 @@ GameObject:
   - component: {fileID: 1196389494}
   - component: {fileID: 1196389493}
   - component: {fileID: 1196389492}
+  - component: {fileID: 1196389496}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -1578,6 +1579,18 @@ Transform:
   m_Father: {fileID: 1529125972}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1196389496
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1196389491}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ff26db721962cdf4a8edcdfa9a767d2a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  profile: {fileID: 11400000, guid: 324900be829cd7c4c96d57714e9ef23e, type: 2}
 --- !u!1 &1302347775
 GameObject:
   m_ObjectHideFlags: 0
@@ -1712,6 +1725,7 @@ GameObject:
   - component: {fileID: 1468770026}
   - component: {fileID: 1468770025}
   - component: {fileID: 1468770024}
+  - component: {fileID: 1468770027}
   m_Layer: 9
   m_Name: Weapon_Cam
   m_TagString: Untagged
@@ -1783,6 +1797,18 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
+--- !u!114 &1468770027
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1468770022}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ff26db721962cdf4a8edcdfa9a767d2a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  profile: {fileID: 11400000, guid: 662a47ed01aa6234783ca86f5311adee, type: 2}
 --- !u!4 &1505771501 stripped
 Transform:
   m_PrefabParentObject: {fileID: 4144817655515888, guid: 93fb048d0136f084cb1f783ca99e5ea7,
@@ -2144,7 +2170,7 @@ Prefab:
     - target: {fileID: 108352890995646114, guid: 93fb048d0136f084cb1f783ca99e5ea7,
         type: 2}
       propertyPath: m_Intensity
-      value: 0.3
+      value: 0.8
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 93fb048d0136f084cb1f783ca99e5ea7, type: 2}
