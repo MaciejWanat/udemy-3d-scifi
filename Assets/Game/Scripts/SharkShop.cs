@@ -4,6 +4,13 @@ using UnityEngine;
 
 public class SharkShop : MonoBehaviour {
 
+    private UIManager _uIManager;
+
+    public void Start()
+    {
+        _uIManager = GameObject.Find("Canvas").GetComponent<UIManager>();
+    }
+
     public void OnTriggerStay(Collider other)
     {
         if(other.tag == "Player")
@@ -16,19 +23,20 @@ public class SharkShop : MonoBehaviour {
                     if (player.hasCoin == true)
                     {
                         player.hasCoin = false;
-                        UIManager uIManager = GameObject.Find("Canvas").GetComponent<UIManager>();
-                        if (uIManager != null)
+
+                        if (_uIManager != null)
                         {
-                            uIManager.RemoveCoin();
+                            _uIManager.RemoveCoin();
                         }
 
                         AudioSource audio = GetComponent<AudioSource>();
                         audio.Play();
-                        player.EnableWeapons();                        
+                        player.EnableWeapons();
+                        _uIManager.FadeGameTextInOut(1, 0, "Tasty coin! Here, have your weapon!");
                     }
                     else
                     {
-                        Debug.Log("Get outta here!");
+                        _uIManager.FadeGameTextInOut(1, 0, "Yarr, no coin, no weapon. If only there would be any shiny coin nearby...");
                     }
                 }
             }
