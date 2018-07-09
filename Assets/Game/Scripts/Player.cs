@@ -12,6 +12,17 @@ public class Player : MonoBehaviour {
     private GameObject _muzzleFlash;
     [SerializeField]
     private GameObject _hitMarkerPrefab;
+    [SerializeField]
+    private AudioSource _weaponAudio;
+    [SerializeField]
+    private int currentAmmo;
+    [SerializeField]
+    private int maxAmmo = 50;
+
+    private bool _isReloading = false;
+    private UIManager _uiManager;
+
+    public bool hasCoin = false;
 
     // Use this for initialization
 	void Start ()
@@ -20,29 +31,29 @@ public class Player : MonoBehaviour {
 
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
+
+        _uiManager = GameObject.Find("Canvas").GetComponent<UIManager>();
+
+        currentAmmo = maxAmmo;
     }
 	
 	// Update is called once per frame
 	void Update ()
     {
-        if (Input.GetMouseButton(0))
+        if(Input.GetKeyDown(KeyCode.R) && !_isReloading)
         {
-            Ray rayOrigin = Camera.main.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
-            RaycastHit hitInfo;
+            _isReloading = true;
+            StartCoroutine(Reload());
+        }
 
-            _muzzleFlash.SetActive(true);
-
-            if (Physics.Raycast(rayOrigin, out hitInfo))
-            {
-                Debug.Log("Hit: " + hitInfo.transform.name);
-                GameObject hitMarker = Instantiate(_hitMarkerPrefab, hitInfo.point, Quaternion.LookRotation(hitInfo.normal)) as GameObject;
-                Destroy(hitMarker, 1.0f);
-            }
-
+        if (Input.GetMouseButton(0) && currentAmmo > 0)
+        {
+            Shoot();
         }
         else
         {
             _muzzleFlash.SetActive(false);
+            _weaponAudio.Stop();
         }
 
         if (Input.GetKeyDown(KeyCode.Escape))
@@ -53,6 +64,27 @@ public class Player : MonoBehaviour {
 
         CalculateMovement();
 	}
+
+    void Shoot()
+    {
+        Ray rayOrigin = Camera.main.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
+        RaycastHit hitInfo;
+
+        currentAmmo--;
+        _uiManager.UpdateAmmo(currentAmmo);
+
+        if (!_weaponAudio.isPlaying)
+            _weaponAudio.Play();
+
+        _muzzleFlash.SetActive(true);
+
+        if (Physics.Raycast(rayOrigin, out hitInfo))
+        {
+            Debug.Log("Hit: " + hitInfo.transform.name);
+            GameObject hitMarker = Instantiate(_hitMarkerPrefab, hitInfo.point, Quaternion.LookRotation(hitInfo.normal)) as GameObject;
+            Destroy(hitMarker, 1.0f);
+        }
+    }
 
     void CalculateMovement()
     {
@@ -66,5 +98,15 @@ public class Player : MonoBehaviour {
         velocity = transform.transform.TransformDirection(velocity);
 
         _controller.Move(velocity * Time.deltaTime);
+    }
+
+    IEnumerator Reload()
+    {
+        _uiManager.ReloadOn();
+        yield return new WaitForSeconds(1.5f);
+        currentAmmo = maxAmmo;
+        _uiManager.UpdateAmmo(currentAmmo);
+        _isReloading = false;
+        _uiManager.ReloadOff();
     }
 }
