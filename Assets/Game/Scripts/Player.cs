@@ -24,6 +24,9 @@ public class Player : MonoBehaviour {
 
     public bool hasCoin = false;
 
+    [SerializeField]
+    private GameObject _weapon;
+
     // Use this for initialization
 	void Start ()
     {
@@ -40,26 +43,29 @@ public class Player : MonoBehaviour {
 	// Update is called once per frame
 	void Update ()
     {
-        if(Input.GetKeyDown(KeyCode.R) && !_isReloading)
+        if(_weapon.activeSelf)
         {
-            _isReloading = true;
-            StartCoroutine(Reload());
-        }
+            if (Input.GetKeyDown(KeyCode.R) && !_isReloading)
+            {
+                _isReloading = true;
+                StartCoroutine(Reload());
+            }
 
-        if (Input.GetMouseButton(0) && currentAmmo > 0)
-        {
-            Shoot();
-        }
-        else
-        {
-            _muzzleFlash.SetActive(false);
-            _weaponAudio.Stop();
-        }
+            if (Input.GetMouseButton(0) && currentAmmo > 0)
+            {
+                Shoot();
+            }
+            else
+            {
+                _muzzleFlash.SetActive(false);
+                _weaponAudio.Stop();
+            }
 
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            Cursor.visible = true;
-            Cursor.lockState = CursorLockMode.None;
+            if (Input.GetKeyDown(KeyCode.Escape))
+            {
+                Cursor.visible = true;
+                Cursor.lockState = CursorLockMode.None;
+            }
         }
 
         CalculateMovement();
@@ -108,5 +114,11 @@ public class Player : MonoBehaviour {
         _uiManager.UpdateAmmo(currentAmmo);
         _isReloading = false;
         _uiManager.ReloadOff();
+    }
+
+    public void EnableWeapons()
+    {
+        _weapon.SetActive(true);
+        _uiManager.WeaponOn();
     }
 }

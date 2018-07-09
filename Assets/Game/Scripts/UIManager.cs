@@ -35,5 +35,15 @@ public class UIManager : MonoBehaviour {
         _reloadText.enabled = false;
         _crossHair.enabled = true;
     }
+
+    public void RemoveCoin()
+    {
+        _coin.SetActive(false);
+    }
+
+    public void WeaponOn()
+    {
+        _ammoText.enabled = true;
+    }
 }
 
