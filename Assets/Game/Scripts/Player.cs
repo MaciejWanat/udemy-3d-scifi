@@ -17,7 +17,7 @@ public class Player : MonoBehaviour {
     [SerializeField]
     private int currentAmmo;
     [SerializeField]
-    private int maxAmmo = 50;
+    private int maxAmmo = 100;
 
     private bool _isReloading = false;
     private UIManager _uiManager;
@@ -86,14 +86,17 @@ public class Player : MonoBehaviour {
 
         if (Physics.Raycast(rayOrigin, out hitInfo))
         {
-            Debug.Log("Hit: " + hitInfo.transform.name);
-            GameObject hitMarker = Instantiate(_hitMarkerPrefab, hitInfo.point, Quaternion.LookRotation(hitInfo.normal)) as GameObject;
-            Destroy(hitMarker, 1.0f);
-
-            Destructable crate = hitInfo.transform.GetComponent<Destructable>();
-            if(crate)
+            if(!hitInfo.collider.isTrigger)
             {
-                crate.DestroyCrate();
+                Debug.Log("Hit: " + hitInfo.transform.name);
+                GameObject hitMarker = Instantiate(_hitMarkerPrefab, hitInfo.point, Quaternion.LookRotation(hitInfo.normal)) as GameObject;
+                Destroy(hitMarker, 1.0f);
+
+                Destructable crate = hitInfo.transform.GetComponent<Destructable>();
+                if (crate)
+                {
+                    crate.DestroyCrate();
+                }
             }
         }
     }
@@ -126,5 +129,10 @@ public class Player : MonoBehaviour {
     {
         _weapon.SetActive(true);
         _uiManager.WeaponOn();
+    }
+
+    public bool IsWeaponActive()
+    {
+        return _weapon.activeSelf;
     }
 }

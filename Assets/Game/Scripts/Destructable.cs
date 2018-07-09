@@ -17,7 +17,10 @@ public class Destructable : MonoBehaviour {
     public void DestroyCrate()
     {
         Instantiate(_crateDestroyed, transform.position, transform.rotation);
-        _uIManager.FadeGameTextInOut(2, 2, "Good job, you completed the heroic quest of destroying the crate!");
+
+        Debug.Log(tag);
+        if(this.tag == "Devine_Crate")
+            _uIManager.FadeGameTextInOut(2, 2, "Good job, you completed the heroic quest of destroying the crate!");
         Destroy(this.gameObject);
     }
 }
