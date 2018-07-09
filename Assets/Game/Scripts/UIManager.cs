@@ -11,6 +11,13 @@ public class UIManager : MonoBehaviour {
     private Text _reloadText;
     [SerializeField]
     private Image _crossHair;
+    [SerializeField]
+    private GameObject _coin;
+
+    public void CollectedCoin()
+    {
+        _coin.SetActive(true);
+    }
 
     public void UpdateAmmo(int count)
     {
