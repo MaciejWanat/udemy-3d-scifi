@@ -26,6 +26,9 @@ public class LookY : MonoBehaviour {
         Vector3 newRotation = transform.localEulerAngles;
         newRotation.x = transform.localEulerAngles.x - (_sensitivity * mouseY);
 
+        newRotation.y = 0;
+        newRotation.z = 0;
+
         transform.localEulerAngles = newRotation;
     }
 }
