@@ -5,10 +5,12 @@ using UnityEngine;
 public class SecondHand : MonoBehaviour {
 
     private UIManager _uIManager;
+    private AudioSource _wubba;
 
     public void Start()
     {
         _uIManager = GameObject.Find("Canvas").GetComponent<UIManager>();
+        _wubba = GetComponent<AudioSource>();
     }
 
     public void OnTriggerStay(Collider other)
@@ -20,7 +22,8 @@ public class SecondHand : MonoBehaviour {
                 Player player = other.GetComponent<Player>();
                 if (player != null)
                 {
-                    
+                    _wubba.Stop();
+                    _wubba.Play();
                     _uIManager.FadeGameTextInOut(1, 2, "Twenty schmeckles?! You ain't getting any fleeb for that!");
                 }
             }
