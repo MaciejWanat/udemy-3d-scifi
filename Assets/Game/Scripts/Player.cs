@@ -45,6 +45,8 @@ public class Player : MonoBehaviour {
     {
         if(_weapon.activeSelf)
         {
+            IndicateShootable();
+
             if (Input.GetKeyDown(KeyCode.R) && !_isReloading)
             {
                 _isReloading = true;
@@ -59,17 +61,43 @@ public class Player : MonoBehaviour {
             {
                 _muzzleFlash.SetActive(false);
                 _weaponAudio.Stop();
-            }
+            }          
+        }
 
-            if (Input.GetKeyDown(KeyCode.Escape))
-            {
-                Cursor.visible = true;
-                Cursor.lockState = CursorLockMode.None;
-            }
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            Cursor.visible = true;
+            Cursor.lockState = CursorLockMode.None;
         }
 
         CalculateMovement();
 	}
+
+    void IndicateShootable()
+    {
+        Ray rayOrigin = Camera.main.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
+        RaycastHit hitInfo;
+
+        if (Physics.Raycast(rayOrigin, out hitInfo))
+        {
+            Destructable crate = hitInfo.transform.GetComponent<Destructable>();
+            if (crate && !_uiManager.shootIn)
+            {
+                _uiManager.IndicateShootable();
+            }
+            else
+            if (!crate && _uiManager.shootIn)
+            {
+                _uiManager.IndicateShootableOff();
+            }
+        }
+        else
+        if (_uiManager.shootIn)
+        {
+            _uiManager.IndicateShootableOff();
+        }
+
+    }
 
     void Shoot()
     {

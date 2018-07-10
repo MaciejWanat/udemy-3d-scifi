@@ -17,6 +17,7 @@ public class UIManager : MonoBehaviour {
     private Text _gameText;
     [SerializeField]
     private Text _indicatorText;
+    public bool shootIn = false;
 
     private bool gameTextRoutineRunning = false;
 
@@ -66,6 +67,18 @@ public class UIManager : MonoBehaviour {
     public void IndicateActionOff()
     {
         _indicatorText.enabled = false;
+    }
+
+    public void IndicateShootable()
+    {
+        shootIn = true;
+        _crossHair.color = Color.red;
+    }
+
+    public void IndicateShootableOff()
+    {
+        shootIn = false;
+        _crossHair.color = Color.white;
     }
 
     public void FadeGameTextInOut(float time, float persist, string message)

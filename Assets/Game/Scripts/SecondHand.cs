@@ -17,7 +17,7 @@ public class SecondHand : MonoBehaviour {
     {
         if (other.tag == "Player")
         {
-            _uIManager.IndicateActionOn("Talk");
+            _uIManager.IndicateActionOn("Talk [E]");
             if (Input.GetKeyDown(KeyCode.E))
             {
                 Player player = other.GetComponent<Player>();

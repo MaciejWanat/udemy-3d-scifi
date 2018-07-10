@@ -17,7 +17,7 @@ public class Coin : MonoBehaviour {
     {
         if(other.tag == "Player")
         {
-            _uIManager.IndicateActionOn("Pick up");
+            _uIManager.IndicateActionOn("Pick up [E]");
             if (Input.GetKeyDown(KeyCode.E))
             {
                 Player player = other.GetComponent<Player>();
