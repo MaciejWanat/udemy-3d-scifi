@@ -58,6 +58,11 @@ public class UIManager : MonoBehaviour {
         _ammoText.enabled = true;
     }
 
+    public string GetIndicatorText()
+    {
+        return _indicatorText.text;
+    }
+
     public void IndicateActionOn(string text)
     {
         _indicatorText.enabled = true;

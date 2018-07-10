@@ -47,10 +47,18 @@ public class Player : MonoBehaviour {
         {
             IndicateShootable();
 
-            if (Input.GetKeyDown(KeyCode.R) && !_isReloading)
+            if(!_isReloading)
             {
-                _isReloading = true;
-                StartCoroutine(Reload());
+                if (currentAmmo == 0)
+                {
+                    _uiManager.IndicateActionOn("Reload [R]");
+                }
+
+                if (Input.GetKeyDown(KeyCode.R))
+                {
+                    _isReloading = true;
+                    StartCoroutine(Reload());
+                }
             }
 
             if (Input.GetMouseButton(0) && currentAmmo > 0)
@@ -146,6 +154,12 @@ public class Player : MonoBehaviour {
     IEnumerator Reload()
     {
         _uiManager.ReloadOn();
+
+        if (_uiManager.GetIndicatorText() == "Reload [R]")
+        {
+            _uiManager.IndicateActionOff();
+        }
+
         yield return new WaitForSeconds(1.5f);
         currentAmmo = maxAmmo;
         _uiManager.UpdateAmmo(currentAmmo);
