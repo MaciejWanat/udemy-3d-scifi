@@ -17,6 +17,7 @@ public class SecondHand : MonoBehaviour {
     {
         if (other.tag == "Player")
         {
+            _uIManager.IndicateActionOn("Talk");
             if (Input.GetKeyDown(KeyCode.E))
             {
                 Player player = other.GetComponent<Player>();
@@ -28,5 +29,10 @@ public class SecondHand : MonoBehaviour {
                 }
             }
         }
+    }
+
+    void OnTriggerExit(Collider other)
+    {
+        _uIManager.IndicateActionOff();
     }
 }

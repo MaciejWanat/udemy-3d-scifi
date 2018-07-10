@@ -15,12 +15,14 @@ public class UIManager : MonoBehaviour {
     private GameObject _coin;
     [SerializeField]
     private Text _gameText;
+    [SerializeField]
+    private Text _indicatorText;
 
     private bool gameTextRoutineRunning = false;
 
     public void Start()
     {
-        FadeGameTextInOut(2, 2, "Whoa, what's that crate doing here? I wonder if there is a way to destroy it...");
+        FadeGameTextInOut(3, 2, "Whoa, what's that crate doing here? I wonder if there is a way to destroy it...");
     }
 
     public void CollectedCoin()
@@ -53,6 +55,17 @@ public class UIManager : MonoBehaviour {
     public void WeaponOn()
     {
         _ammoText.enabled = true;
+    }
+
+    public void IndicateActionOn(string text)
+    {
+        _indicatorText.enabled = true;
+        _indicatorText.text = text;
+    }
+
+    public void IndicateActionOff()
+    {
+        _indicatorText.enabled = false;
     }
 
     public void FadeGameTextInOut(float time, float persist, string message)

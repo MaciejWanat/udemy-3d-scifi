@@ -6,17 +6,19 @@ public class Coin : MonoBehaviour {
 
     [SerializeField]
     private AudioClip _coinPickUp;
+    private UIManager _uIManager;
 
     private void Start()
     {
-
+        _uIManager = GameObject.Find("Canvas").GetComponent<UIManager>();
     }
     
     public void OnTriggerStay(Collider other)
     {
         if(other.tag == "Player")
         {
-            if(Input.GetKeyDown(KeyCode.E))
+            _uIManager.IndicateActionOn("Pick up");
+            if (Input.GetKeyDown(KeyCode.E))
             {
                 Player player = other.GetComponent<Player>();
                 if (player != null)
@@ -31,10 +33,16 @@ public class Coin : MonoBehaviour {
                         uiManager.CollectedCoin();
                     }
 
+                    _uIManager.IndicateActionOff();
                     Destroy(this.gameObject);
                 }
             }
         }
     }
-   
+
+    void OnTriggerExit(Collider other)
+    {
+        _uIManager.IndicateActionOff();
+    }
+
 }

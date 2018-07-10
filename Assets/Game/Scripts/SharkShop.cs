@@ -20,7 +20,8 @@ public class SharkShop : MonoBehaviour {
     {
         if(other.tag == "Player")
         {
-            if(Input.GetKeyDown(KeyCode.E))
+            _uIManager.IndicateActionOn("Talk");
+            if (Input.GetKeyDown(KeyCode.E))
             {
                 Player player = other.GetComponent<Player>();
                 if (player != null)
@@ -56,5 +57,10 @@ public class SharkShop : MonoBehaviour {
                 }
             }
         }
+    }
+
+    void OnTriggerExit(Collider other)
+    {
+        _uIManager.IndicateActionOff();
     }
 }
