@@ -23,7 +23,8 @@ public class UIManager : MonoBehaviour {
 
     public void Start()
     {
-        FadeGameTextInOut(3, 2, "Whoa, what's that crate doing here? I wonder if there is a way to destroy it...");
+        //FadeGameTextInOut(3, 2, "Whoa, what's that crate doing here? I wonder if there is a way to destroy it...");
+        _gameText.text = "";
     }
 
     public void CollectedCoin()
